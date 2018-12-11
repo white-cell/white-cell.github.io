@@ -30,4 +30,4 @@ getshell poc<br/>
 
 ### 防护
 1.代码本身就更新thinkphp5，或修改代码。<br/>
-2.防护设备可以匹配s=.*?/双斜杠think双斜杠.*?来判定，解释下s参数是thinkphp5 var_pathinfo的默认配置为s，利用的类目前也都是在think\这个命名空间下的已知类。<br/>
+2.防护设备可以匹配s=.*?/\\\\think\\\\.*?来判定，解释下s参数是thinkphp5 var_pathinfo的默认配置为s，利用的类目前也都是在think\这个命名空间下的已知类。<br/>
